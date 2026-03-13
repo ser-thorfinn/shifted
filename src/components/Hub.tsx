@@ -17,7 +17,7 @@ const STATUS_LABELS: Record<ProjectStatus, string> = {
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <a
+    
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
@@ -60,6 +60,7 @@ export default function Hub({ projects, categories }: HubProps) {
   const featured = filtered.filter((p) => p.featured);
   const rest = filtered.filter((p) => !p.featured);
   const liveCount = projects.filter((p) => p.status === "live").length;
+  const builderCount = Array.from(new Set(projects.map((p) => p.builtBy))).length;
 
   return (
     <div className={styles.root}>
@@ -96,9 +97,7 @@ export default function Hub({ projects, categories }: HubProps) {
             <div className={styles.statLabel}>Live</div>
           </div>
           <div className={styles.stat}>
-            <div className={styles.statNum}>
-              {[...new Set(projects.map((p) => p.builtBy))].length}
-            </div>
+            <div className={styles.statNum}>{builderCount}</div>
             <div className={styles.statLabel}>Builders</div>
           </div>
         </div>
